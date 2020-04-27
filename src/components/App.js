@@ -8,12 +8,10 @@ import HistoryGrid from "./HistoryGrid";
 import Chip from "@material-ui/core/Chip";
 import FaceIcon from "@material-ui/icons/Face";
 import TimelapseIcon from "@material-ui/icons/Timelapse";
-import { borderRadius, fontFamily } from "@material-ui/system";
 
 const styles = {
   buttonContainer: {
     textAlign: "center",
-    padding: "20px",
     margin: "10px 0"
   },
 
@@ -22,12 +20,10 @@ const styles = {
   },
 
   fetchError: {
-    backgroundColor: "#c73c56",
-    borderRadius: "5px",
-    padding: "5px 20px",
-    color: "white",
+    color: "#c51d37",
     fontFamily: "Roboto",
-    margin: "10px 0"
+    margin: "10px 0",
+    fontSize: "14px"
   }
 };
 
@@ -38,7 +34,8 @@ const fields = ["Date", "ID", "Old Name", "New Name"];
 export const App = () => {
   const [loading, setLoading] = useState(true);
   const [failed, setFailed] = useState(false);
-  const [rows, setRows] = useState([]);
+  const [userRows, setUserRows] = useState([]);
+  const [projectRows, setProjectRows] = useState([]);
   const [historyType, setHistoryType] = useState("users");
 
   useEffect(() => {
@@ -61,12 +58,16 @@ export const App = () => {
     if (!loading) return;
     const apiCall =
       historyType === "projects" ? api.getProjectsDiff : api.getUsersDiff;
+    const setRows = historyType === "projects" ? setProjectRows : setUserRows;
     try {
       const result = await apiCall();
       setLoading(false);
       setFailed(false);
       // const { code, data, limit, offset, total } = result;
-      setRows(result.data);
+      console.log(result);
+
+      const prevRows = historyType === "projects" ? projectRows : userRows;
+      setRows([...prevRows, ...result.data]);
     } catch (error) {
       console.log(error);
       setLoading(false);
@@ -99,12 +100,21 @@ export const App = () => {
           />
         </div>
         <HistoryGrid
-          rows={rows}
+          rows={historyType === "projects" ? projectRows : userRows}
           // fields={historyType === "projects" ? projectFields : userFields}
           fields={fields}
         />
         {/* Just a dummy fetcher to show how the api should be used, this should be removed */}
         <div style={styles.buttonContainer}>
+          <Button
+            variant="contained"
+            color="primary"
+            fullWidth={true}
+            onClick={handleClickFetch}
+            disabled={loading}
+          >
+            {loading ? "Fetching..." : "Fetch More"}
+          </Button>
           {failed ? (
             <div style={styles.fetchError}>
               Sorry, Your data has failed to fetch. Please try again
@@ -112,14 +122,6 @@ export const App = () => {
           ) : (
             <div />
           )}
-          <Button
-            variant="contained"
-            color="primary"
-            onClick={handleClickFetch}
-            disabled={loading}
-          >
-            {loading ? "Fetching..." : "Fetch More"}
-          </Button>
         </div>
       </Box>
     </Container>
