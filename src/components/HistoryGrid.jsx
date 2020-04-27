@@ -3,6 +3,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
+import TableSortLabel from "@material-ui/core/TableSortLabel";
 import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
@@ -14,28 +15,33 @@ const useStyles = makeStyles({
   }
 });
 
-export default function SimpleTable({ fields, rows }) {
+export default function SimpleTable({ fields, rows, orderBy, order, onSort }) {
   const classes = useStyles();
-  const extendedRows = rows.map(({ id, timestamp, diff }) => {
-    return {
-      ...diff[0],
-      id,
-      date: new Date(timestamp).toLocaleDateString("en-US")
-    };
-  });
 
   return (
     <TableContainer component={Paper}>
-      <Table className={classes.table} aria-label="simple table">
+      <Table className={classes.table} size="small">
         <TableHead>
           <TableRow>
             {fields.map(title => (
-              <TableCell>{title}</TableCell>
+              <TableCell key={title}>
+                {title === "Date" ? (
+                  <TableSortLabel
+                    active={orderBy === title}
+                    direction={orderBy === title ? order : "asc"}
+                    onClick={onSort}
+                  >
+                    {title}
+                  </TableSortLabel>
+                ) : (
+                  title
+                )}
+              </TableCell>
             ))}
           </TableRow>
         </TableHead>
         <TableBody>
-          {extendedRows.map(({ id, date, field, oldValue, newValue }) => (
+          {rows.map(({ id, date, field, oldValue, newValue }) => (
             <TableRow key={id}>
               <TableCell component="th" scope="row">
                 {date}

@@ -15,6 +15,10 @@ const styles = {
     margin: "10px 0"
   },
 
+  chipContainer: {
+    marginTop: "10px"
+  },
+
   chip: {
     margin: "10px 5px"
   },
@@ -31,9 +35,26 @@ const styles = {
 // const userFields = ["Date", "User ID", "Old Name", "New Name"];
 const fields = ["Date", "ID", "Old Name", "New Name"];
 
+const sortRows = (unsorted, order) => {
+  return unsorted.sort((a, b) => {
+    if (order === "asc") {
+      return a.timestamp - b.timestamp;
+    } else {
+      return b.timestamp - a.timestamp;
+    }
+  });
+};
+
+const reverse = order => {
+  if (order === "asc") return "desc";
+  else return "asc";
+};
+
 export const App = () => {
   const [loading, setLoading] = useState(true);
   const [failed, setFailed] = useState(false);
+  const [userOrder, setUserOrder] = useState("desc");
+  const [projectOrder, setProjectOrder] = useState("desc");
   const [userRows, setUserRows] = useState([]);
   const [projectRows, setProjectRows] = useState([]);
   const [historyType, setHistoryType] = useState("users");
@@ -54,6 +75,16 @@ export const App = () => {
     setHistoryType("projects");
   };
 
+  const handleUserOrder = () => {
+    setUserOrder(reverse(userOrder));
+    setUserRows(sortRows(userRows, reverse(userOrder)));
+  };
+
+  const handleProjectOrder = () => {
+    setProjectOrder(reverse(projectOrder));
+    setProjectRows(sortRows(projectRows, reverse(projectOrder)));
+  };
+
   const fetchData = async () => {
     if (!loading) return;
     const apiCall =
@@ -67,7 +98,19 @@ export const App = () => {
       console.log(result);
 
       const prevRows = historyType === "projects" ? projectRows : userRows;
-      setRows([...prevRows, ...result.data]);
+      const newRows = result.data.map(({ id, timestamp, diff }) => {
+        return {
+          ...diff[0],
+          id,
+          timestamp,
+          date: new Date(timestamp).toLocaleDateString("en-GB")
+        };
+      });
+
+      setRows(
+        sortRows([...prevRows, ...newRows]),
+        historyType === "projects" ? projectOrder : userOrder
+      );
     } catch (error) {
       console.log(error);
       setLoading(false);
@@ -78,9 +121,10 @@ export const App = () => {
   return (
     <Container className="app" fixed>
       <Box data-testid="app-box" m={2}>
-        <Typography>
-          <h1>Users and Projects History Panel</h1>
+        <Typography variant="h4" color="primary">
+          Users and Projects
         </Typography>
+        <Typography variant="subtitle1">History Panel</Typography>
         <div style={styles.chipContainer}>
           <Chip
             icon={<FaceIcon />}
@@ -103,6 +147,11 @@ export const App = () => {
           rows={historyType === "projects" ? projectRows : userRows}
           // fields={historyType === "projects" ? projectFields : userFields}
           fields={fields}
+          orderBy="Date"
+          order={historyType === "projects" ? projectOrder : userOrder}
+          onSort={
+            historyType === "projects" ? handleProjectOrder : handleUserOrder
+          }
         />
         {/* Just a dummy fetcher to show how the api should be used, this should be removed */}
         <div style={styles.buttonContainer}>
