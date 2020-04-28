@@ -50,14 +50,12 @@ export const App = () => {
             onClick={handleProjectsHistoryClick}
           />
         </div>
-        <HistoryContainer
-          historyType="users"
-          active={historyType === "users"}
-        />
-        <HistoryContainer
-          historyType="projects"
-          active={historyType === "projects"}
-        />
+        <div hidden={historyType !== "users"}>
+          <HistoryContainer historyType="users" />
+        </div>
+        <div hidden={historyType !== "projects"}>
+          <HistoryContainer historyType="projects" />
+        </div>
       </Box>
     </Container>
   );

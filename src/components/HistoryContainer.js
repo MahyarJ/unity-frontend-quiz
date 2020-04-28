@@ -13,7 +13,6 @@ const styles = {
     textAlign: "center",
     margin: "10px 0"
   },
-
   fetchError: {
     color: "#c51d37",
     fontFamily: "Roboto",
@@ -22,7 +21,7 @@ const styles = {
   }
 };
 
-export default function HistoryContainer({ historyType, active }) {
+export default function HistoryContainer({ historyType }) {
   const [loading, setLoading] = useState(true);
   const [failed, setFailed] = useState(false);
   const [order, setOrder] = useState("desc");
@@ -69,7 +68,7 @@ export default function HistoryContainer({ historyType, active }) {
   };
 
   return (
-    <div style={{ display: active ? "block" : "none" }}>
+    <>
       <HistoryGrid
         rows={rows}
         fields={fields}
@@ -95,6 +94,6 @@ export default function HistoryContainer({ historyType, active }) {
           <div />
         )}
       </div>
-    </div>
+    </>
   );
 }
