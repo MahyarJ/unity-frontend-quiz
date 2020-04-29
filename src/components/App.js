@@ -9,11 +9,11 @@ import HistoryContainer from "./HistoryContainer";
 
 const styles = {
   chipContainer: {
-    marginTop: "10px"
+    marginTop: "10px",
   },
   chip: {
-    margin: "10px 5px"
-  }
+    margin: "10px 5px",
+  },
 };
 
 export const App = () => {
