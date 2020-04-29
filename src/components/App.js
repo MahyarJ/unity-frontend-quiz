@@ -5,6 +5,9 @@ import Box from "@material-ui/core/Box";
 import CategorySelector from "./CategorySelector";
 import HistoryContainer from "./HistoryContainer";
 
+const projectFields = ["Date", "Project ID", "Old Title", "New Title"];
+const userFields = ["Date", "User ID", "Old Name", "New Name"];
+
 export const App = () => {
   const [historyType, setHistoryType] = useState("users");
 
@@ -26,10 +29,10 @@ export const App = () => {
           handleProjectsHistoryClick={handleProjectsHistoryClick}
         />
         <div hidden={historyType !== "users"}>
-          <HistoryContainer historyType="users" />
+          <HistoryContainer historyType="users" fields={userFields} />
         </div>
         <div hidden={historyType !== "projects"}>
-          <HistoryContainer historyType="projects" />
+          <HistoryContainer historyType="projects" fields={projectFields} />
         </div>
       </Box>
     </Container>

@@ -5,11 +5,7 @@ import api from "../lib/api";
 import { reverse, sortRows } from "./utils";
 import styles from "./HistoryContainer.module.css";
 
-// const projectFields = ["Date", "Project ID", "Old Title", "New Title"];
-// const userFields = ["Date", "User ID", "Old Name", "New Name"];
-const fields = ["Date", "ID", "Old Name", "New Name"];
-
-const HistoryContainer = ({ historyType }) => {
+const HistoryContainer = ({ historyType, fields }) => {
   const [loading, setLoading] = useState(true);
   const [allowFetch, setAllowFetch] = useState(true);
   const [failed, setFailed] = useState(false);
