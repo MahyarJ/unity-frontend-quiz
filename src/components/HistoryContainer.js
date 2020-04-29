@@ -3,23 +3,11 @@ import HistoryGrid from "./HistoryGrid";
 import Button from "@material-ui/core/Button";
 import api from "../lib/api";
 import { reverse, sortRows } from "./utils";
+import styles from "./HistoryContainer.module.css";
 
 // const projectFields = ["Date", "Project ID", "Old Title", "New Title"];
 // const userFields = ["Date", "User ID", "Old Name", "New Name"];
 const fields = ["Date", "ID", "Old Name", "New Name"];
-
-const styles = {
-  buttonContainer: {
-    textAlign: "center",
-    margin: "10px 0"
-  },
-  fetchError: {
-    color: "#c51d37",
-    fontFamily: "Roboto",
-    margin: "10px 0",
-    fontSize: "14px"
-  }
-};
 
 const HistoryContainer = ({ historyType }) => {
   const [loading, setLoading] = useState(true);
@@ -32,7 +20,7 @@ const HistoryContainer = ({ historyType }) => {
     fetchData();
   });
 
-  const handleClickFetch = e => {
+  const handleClickFetch = (e) => {
     setAllowFetch(true);
     setLoading(true);
   };
@@ -58,7 +46,7 @@ const HistoryContainer = ({ historyType }) => {
           ...diff[0],
           id,
           timestamp,
-          date: new Date(timestamp).toLocaleDateString("en-GB")
+          date: new Date(timestamp).toLocaleDateString("en-GB"),
         };
       });
 
@@ -79,7 +67,7 @@ const HistoryContainer = ({ historyType }) => {
         order={order}
         onSort={handleOrder}
       />
-      <div style={styles.buttonContainer}>
+      <div className={styles.buttonContainer}>
         <Button
           variant="contained"
           color="primary"
@@ -90,7 +78,7 @@ const HistoryContainer = ({ historyType }) => {
           {loading ? "Fetching..." : "Fetch More"}
         </Button>
         {failed ? (
-          <div style={styles.fetchError}>
+          <div className={styles.fetchError}>
             Sorry, Your data has failed to fetch. Please try again
           </div>
         ) : (

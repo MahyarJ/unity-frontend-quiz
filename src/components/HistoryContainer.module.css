@@ -1,0 +1,11 @@
+.buttonContainer {
+  text-align: center;
+  margin: 10px 0;
+}
+
+.fetchError {
+  color: #c51d37;
+  font-family: Roboto;
+  margin: 10px 0;
+  font-size: 14px
+}
