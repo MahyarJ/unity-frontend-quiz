@@ -11,7 +11,6 @@ const styles = {
   chipContainer: {
     marginTop: "10px"
   },
-
   chip: {
     margin: "10px 5px"
   }

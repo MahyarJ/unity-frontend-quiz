@@ -21,8 +21,9 @@ const styles = {
   }
 };
 
-export default function HistoryContainer({ historyType }) {
+const HistoryContainer = ({ historyType }) => {
   const [loading, setLoading] = useState(true);
+  const [allowFetch, setAllowFetch] = useState(true);
   const [failed, setFailed] = useState(false);
   const [order, setOrder] = useState("desc");
   const [rows, setRows] = useState([]);
@@ -32,6 +33,7 @@ export default function HistoryContainer({ historyType }) {
   });
 
   const handleClickFetch = e => {
+    setAllowFetch(true);
     setLoading(true);
   };
 
@@ -41,7 +43,8 @@ export default function HistoryContainer({ historyType }) {
   };
 
   const fetchData = async () => {
-    if (!loading) return;
+    if (!allowFetch) return;
+    setAllowFetch(false);
     const apiCall =
       historyType === "projects" ? api.getProjectsDiff : api.getUsersDiff;
     try {
@@ -96,4 +99,6 @@ export default function HistoryContainer({ historyType }) {
       </div>
     </>
   );
-}
+};
+
+export default HistoryContainer;

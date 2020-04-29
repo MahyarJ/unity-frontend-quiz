@@ -15,7 +15,7 @@ const useStyles = makeStyles({
   }
 });
 
-export default function SimpleTable({ fields, rows, orderBy, order, onSort }) {
+const HistoryGrid = ({ fields, rows, orderBy, order, onSort }) => {
   const classes = useStyles();
 
   return (
@@ -55,4 +55,6 @@ export default function SimpleTable({ fields, rows, orderBy, order, onSort }) {
       </Table>
     </TableContainer>
   );
-}
+};
+
+export default HistoryGrid;
