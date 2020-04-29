@@ -15,6 +15,8 @@
 
 ## Q3
 
+-
+
 ## Q4
 
 - Instead of defining `sum` and using such `for` loop, we can use `return deposites.reduce()` code style.
@@ -33,7 +35,7 @@
 
 ## Q7
 
-- The answer could be accessable [here](src/q7)
+- The answer could be accessable [here](src/q7.js)
 
 ## Q8
 
