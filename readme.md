@@ -35,7 +35,7 @@
 
 ## Q7
 
-- The answer could be accessable [here](src/q7.js)
+- The answer is available [here](src/q7.js)
 
 ## Q8
 
