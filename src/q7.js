@@ -1,12 +1,9 @@
 const responseToTimeseries = (response) => {
   // find the longest sequence
-  let max = 0;
-  let series = [];
+  const series = [];
   response.map(({
     data
   }) => {
-    if (data.length)
-      max = data.length;
     data.map((item) => {
       series.push({
         key: item[0],

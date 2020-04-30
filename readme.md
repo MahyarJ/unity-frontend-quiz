@@ -15,6 +15,8 @@
 
 ## Q3
 
+- Simple and constant password salt is not very secure. The salt should be auto-generated for each password.
+
 -
 
 ## Q4
