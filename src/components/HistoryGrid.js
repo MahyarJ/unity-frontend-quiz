@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
@@ -9,10 +10,15 @@ import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import styles from "./HistoryGrid.module.css";
 
-const HistoryGrid = ({ fields, rows, orderBy, order, onSort }) => {
+export const HistoryGrid = ({ fields, rows, orderBy, order, onSort }) => {
   return (
-    <TableContainer component={Paper}>
-      <Table className={styles.tableContainer} size="small">
+    <TableContainer className={styles.tableContainer} component={Paper}>
+      <Table
+        stickyHeader
+        aria-label="sticky-table"
+        data-testid="sticky-table"
+        size="small"
+      >
         <TableHead>
           <TableRow>
             {fields.map((title) => (
@@ -33,7 +39,7 @@ const HistoryGrid = ({ fields, rows, orderBy, order, onSort }) => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map(({ id, date, field, oldValue, newValue }) => (
+          {rows.map(({ id, date, oldValue, newValue }) => (
             <TableRow key={id}>
               <TableCell component="th" scope="row">
                 {date}
@@ -47,6 +53,11 @@ const HistoryGrid = ({ fields, rows, orderBy, order, onSort }) => {
       </Table>
     </TableContainer>
   );
+};
+
+HistoryGrid.propTypes = {
+  fields: PropTypes.array.isRequired,
+  rows: PropTypes.array.isRequired,
 };
 
 export default HistoryGrid;

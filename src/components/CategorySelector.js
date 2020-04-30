@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
+import PropTypes from "prop-types";
 import Chip from "@material-ui/core/Chip";
 import FaceIcon from "@material-ui/icons/Face";
 import TimelapseIcon from "@material-ui/icons/Timelapse";
 import styles from "./CategorySelector.module.css";
 
-const CategorySelector = ({
+export const CategorySelector = ({
   historyType,
   handleUsersHistoryClick,
   handleProjectsHistoryClick,
@@ -14,6 +15,7 @@ const CategorySelector = ({
       <Chip
         className={styles.chip}
         icon={<FaceIcon />}
+        data-testid="category-selector"
         label="Users History"
         variant={historyType === "users" ? "default" : "outlined"}
         color="primary"
@@ -22,6 +24,7 @@ const CategorySelector = ({
       <Chip
         className={styles.chip}
         icon={<TimelapseIcon />}
+        data-testid="category-selector"
         label="Projects History"
         variant={historyType === "projects" ? "default" : "outlined"}
         color="primary"
@@ -30,4 +33,9 @@ const CategorySelector = ({
     </div>
   );
 };
+
+CategorySelector.propTypes = {
+  historyType: PropTypes.string.isRequired,
+};
+
 export default CategorySelector;

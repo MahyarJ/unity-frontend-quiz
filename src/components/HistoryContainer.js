@@ -2,24 +2,18 @@ import React, { useState, useEffect } from "react";
 import HistoryGrid from "./HistoryGrid";
 import Button from "@material-ui/core/Button";
 import api from "../lib/api";
-import { reverse, sortRows } from "./utils";
+import { reverse, sortRows, flattenRows } from "./utils";
 import styles from "./HistoryContainer.module.css";
 
-const HistoryContainer = ({ historyType, fields }) => {
-  const [loading, setLoading] = useState(true);
-  const [allowFetch, setAllowFetch] = useState(true);
+export const HistoryContainer = ({ historyType, fields }) => {
+  const [loading, setLoading] = useState(false);
   const [failed, setFailed] = useState(false);
   const [order, setOrder] = useState("desc");
   const [rows, setRows] = useState([]);
 
   useEffect(() => {
     fetchData();
-  });
-
-  const handleClickFetch = (e) => {
-    setAllowFetch(true);
-    setLoading(true);
-  };
+  }, []);
 
   const handleOrder = () => {
     setOrder(reverse(order));
@@ -27,8 +21,8 @@ const HistoryContainer = ({ historyType, fields }) => {
   };
 
   const fetchData = async () => {
-    if (!allowFetch) return;
-    setAllowFetch(false);
+    if (loading) return;
+    setLoading(true);
     const apiCall =
       historyType === "projects" ? api.getProjectsDiff : api.getUsersDiff;
     try {
@@ -36,17 +30,7 @@ const HistoryContainer = ({ historyType, fields }) => {
       setLoading(false);
       setFailed(false);
       console.log(result);
-
-      const newRows = result.data.map(({ id, timestamp, diff }) => {
-        return {
-          ...diff[0],
-          id,
-          timestamp,
-          date: new Date(timestamp).toLocaleDateString("en-GB"),
-        };
-      });
-
-      setRows(sortRows([...rows, ...newRows]), order);
+      setRows(sortRows([...rows, ...flattenRows(result.data)]), order);
     } catch (error) {
       console.log(error);
       setLoading(false);
@@ -68,7 +52,7 @@ const HistoryContainer = ({ historyType, fields }) => {
           variant="contained"
           color="primary"
           fullWidth={true}
-          onClick={handleClickFetch}
+          onClick={fetchData}
           disabled={loading}
         >
           {loading ? "Fetching..." : "Fetch More"}

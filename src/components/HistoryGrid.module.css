@@ -1,3 +1,15 @@
 .tableContainer {
+  max-height: calc(100vh - 180px);
+}
+
+.table {
   min-width: 640px;
+
+}
+
+@media (max-width: 500px) {
+  .table {
+    min-width: 0;
+    max-width: 450px
+  }
 }
