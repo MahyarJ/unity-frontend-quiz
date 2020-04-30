@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import PropTypes from "prop-types";
 import HistoryGrid from "./HistoryGrid";
 import Button from "@material-ui/core/Button";
 import api from "../lib/api";
@@ -67,6 +68,11 @@ export const HistoryContainer = ({ historyType, fields }) => {
       </div>
     </>
   );
+};
+
+HistoryContainer.propTypes = {
+  fields: PropTypes.array.isRequired,
+  historyType: PropTypes.string.isRequired,
 };
 
 export default HistoryContainer;
