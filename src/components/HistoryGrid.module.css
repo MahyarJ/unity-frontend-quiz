@@ -1,15 +1,17 @@
 .tableContainer {
-  max-height: calc(100vh - 180px);
+  max-height: calc(100vh - 240px);
 }
 
 .table {
   min-width: 640px;
-
 }
 
 @media (max-width: 500px) {
   .table {
     min-width: 0;
-    max-width: 450px
+  }
+
+  .tableCell {
+    padding: 6px !important;
   }
 }

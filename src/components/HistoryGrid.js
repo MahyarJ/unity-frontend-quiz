@@ -22,7 +22,7 @@ export const HistoryGrid = ({ fields, rows, orderBy, order, onSort }) => {
         <TableHead>
           <TableRow>
             {fields.map((title) => (
-              <TableCell key={title}>
+              <TableCell className={styles.tableCell} key={title}>
                 {title === "Date" ? (
                   <TableSortLabel
                     active={orderBy === title}
@@ -41,12 +41,16 @@ export const HistoryGrid = ({ fields, rows, orderBy, order, onSort }) => {
         <TableBody>
           {rows.map(({ id, date, oldValue, newValue }) => (
             <TableRow key={id}>
-              <TableCell component="th" scope="row">
+              <TableCell
+                className={styles.tableCell}
+                component="th"
+                scope="row"
+              >
                 {date}
               </TableCell>
-              <TableCell>{id}</TableCell>
-              <TableCell>{oldValue}</TableCell>
-              <TableCell>{newValue}</TableCell>
+              <TableCell className={styles.tableCell}>{id}</TableCell>
+              <TableCell className={styles.tableCell}>{oldValue}</TableCell>
+              <TableCell className={styles.tableCell}>{newValue}</TableCell>
             </TableRow>
           ))}
         </TableBody>

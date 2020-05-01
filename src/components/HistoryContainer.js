@@ -11,6 +11,7 @@ export const HistoryContainer = ({ historyType, fields }) => {
   const [failed, setFailed] = useState(false);
   const [order, setOrder] = useState("desc");
   const [rows, setRows] = useState([]);
+  const [total, setTotal] = useState(0);
 
   useEffect(() => {
     fetchData();
@@ -27,11 +28,11 @@ export const HistoryContainer = ({ historyType, fields }) => {
     const apiCall =
       historyType === "projects" ? api.getProjectsDiff : api.getUsersDiff;
     try {
-      const result = await apiCall();
+      const { data, total } = await apiCall();
       setLoading(false);
       setFailed(false);
-      console.log(result);
-      setRows(sortRows([...rows, ...flattenRows(result.data)]), order);
+      setRows(sortRows([...rows, ...flattenRows(data)]), order);
+      setTotal(total);
     } catch (error) {
       console.log(error);
       setLoading(false);
@@ -54,9 +55,13 @@ export const HistoryContainer = ({ historyType, fields }) => {
           color="primary"
           fullWidth={true}
           onClick={fetchData}
-          disabled={loading}
+          disabled={loading || !(total - rows.length)}
         >
-          {loading ? "Fetching..." : "Fetch More"}
+          {loading
+            ? "Fetching..."
+            : rows.length < total
+            ? `Fetch More (${total - rows.length})`
+            : "No More Data To Fetch"}
         </Button>
         {failed ? (
           <div className={styles.fetchError}>

@@ -4,6 +4,7 @@ import Container from "@material-ui/core/Container";
 import Box from "@material-ui/core/Box";
 import CategorySelector from "./CategorySelector";
 import HistoryContainer from "./HistoryContainer";
+import styles from "./App.module.css";
 
 const projectFields = ["Date", "Project ID", "Old Title", "New Title"];
 const userFields = ["Date", "User ID", "Old Name", "New Name"];
@@ -20,7 +21,7 @@ export const App = () => {
   };
 
   return (
-    <Container className="app" fixed>
+    <Container className={styles.app} fixed>
       <Box data-testid="app-box" m={2}>
         <Typography variant="h5">History Panel</Typography>
         <CategorySelector
