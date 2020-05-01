@@ -2,11 +2,10 @@ import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import HistoryGrid from "./HistoryGrid";
 import Button from "@material-ui/core/Button";
-import api from "../lib/api";
 import { reverse, sortRows, flattenRows } from "./utils";
 import styles from "./HistoryContainer.module.css";
 
-export const HistoryContainer = ({ historyType, fields }) => {
+export const HistoryContainer = ({ fields, apiCall }) => {
   const [loading, setLoading] = useState(false);
   const [failed, setFailed] = useState(false);
   const [order, setOrder] = useState("desc");
@@ -25,8 +24,7 @@ export const HistoryContainer = ({ historyType, fields }) => {
   const fetchData = async () => {
     if (loading) return;
     setLoading(true);
-    const apiCall =
-      historyType === "projects" ? api.getProjectsDiff : api.getUsersDiff;
+
     try {
       const { data, total } = await apiCall();
       setLoading(false);
@@ -77,7 +75,7 @@ export const HistoryContainer = ({ historyType, fields }) => {
 
 HistoryContainer.propTypes = {
   fields: PropTypes.array.isRequired,
-  historyType: PropTypes.string.isRequired,
+  apiCall: PropTypes.func.isRequired,
 };
 
 export default HistoryContainer;

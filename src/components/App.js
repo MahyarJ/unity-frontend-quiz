@@ -5,19 +5,13 @@ import Box from "@material-ui/core/Box";
 import CategorySelector from "./CategorySelector";
 import HistoryContainer from "./HistoryContainer";
 import styles from "./App.module.css";
-
-const projectFields = ["Date", "Project ID", "Old Title", "New Title"];
-const userFields = ["Date", "User ID", "Old Name", "New Name"];
+import { historyTypes } from "./config";
 
 export const App = () => {
-  const [historyType, setHistoryType] = useState("users");
+  const [historyType, setHistoryType] = useState(historyTypes.USERS.id);
 
-  const handleUsersHistoryClick = () => {
-    setHistoryType("users");
-  };
-
-  const handleProjectsHistoryClick = () => {
-    setHistoryType("projects");
+  const handleCategorySelect = (categoryType) => {
+    setHistoryType(categoryType);
   };
 
   return (
@@ -26,15 +20,16 @@ export const App = () => {
         <Typography variant="h5">History Panel</Typography>
         <CategorySelector
           historyType={historyType}
-          handleUsersHistoryClick={handleUsersHistoryClick}
-          handleProjectsHistoryClick={handleProjectsHistoryClick}
+          onSelect={handleCategorySelect}
         />
-        <div hidden={historyType !== "users"}>
-          <HistoryContainer historyType="users" fields={userFields} />
-        </div>
-        <div hidden={historyType !== "projects"}>
-          <HistoryContainer historyType="projects" fields={projectFields} />
-        </div>
+        {Object.keys(historyTypes).map((key) => (
+          <div hidden={historyType !== historyTypes[key].id}>
+            <HistoryContainer
+              fields={historyTypes[key].fields}
+              apiCall={historyTypes[key].api}
+            />
+          </div>
+        ))}
       </Box>
     </Container>
   );

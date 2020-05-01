@@ -42,3 +42,5 @@
 ## Q8
 
 - You can run the project using `npm run dev`
+- I just hidden the different Grids to hold the data in the form to prevent using such as Store in such a small project
+- Handling categories config in a separate file helps to brings out every logic inside the component itself
