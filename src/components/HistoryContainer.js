@@ -29,7 +29,7 @@ export const HistoryContainer = ({ fields, apiCall }) => {
       const { data, total } = await apiCall();
       setLoading(false);
       setFailed(false);
-      setRows(sortRows([...rows, ...flattenRows(data)]), order);
+      setRows(sortRows([...rows, ...flattenRows(data)], order));
       setTotal(total);
     } catch (error) {
       console.log(error);

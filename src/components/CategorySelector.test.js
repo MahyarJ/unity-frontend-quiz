@@ -6,14 +6,12 @@ import { historyTypes } from "./config";
 describe("<CategorySelector />", () => {
   let wrapper = shallow(<CategorySelector historyType="users" />);
 
-  // describe("render()", () => {
-
-  describe("props", () => {
+  describe("render", () => {
     it("check if taking proper classname", () => {
       expect(wrapper.props().className).toBe("chipContainer");
     });
 
-    it("have exactly two children", () => {
+    it("renders options equal to category count", () => {
       expect(wrapper.children()).toHaveLength(historyTypes.length);
     });
   });
