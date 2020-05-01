@@ -8,7 +8,7 @@ import styles from "./App.module.css";
 import { historyTypes } from "./config";
 
 export const App = () => {
-  const [historyType, setHistoryType] = useState(historyTypes.USERS.id);
+  const [historyType, setHistoryType] = useState(historyTypes[0].id);
 
   const handleCategorySelect = (categoryType) => {
     setHistoryType(categoryType);
@@ -22,12 +22,9 @@ export const App = () => {
           historyType={historyType}
           onSelect={handleCategorySelect}
         />
-        {Object.keys(historyTypes).map((key) => (
-          <div hidden={historyType !== historyTypes[key].id}>
-            <HistoryContainer
-              fields={historyTypes[key].fields}
-              apiCall={historyTypes[key].api}
-            />
+        {historyTypes.map((type) => (
+          <div key={type.id} hidden={historyType !== type.id}>
+            <HistoryContainer fields={type.fields} apiCall={type.api} />
           </div>
         ))}
       </Box>

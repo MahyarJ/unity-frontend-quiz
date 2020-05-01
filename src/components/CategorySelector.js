@@ -7,18 +7,17 @@ import { historyTypes } from "./config";
 export const CategorySelector = ({ historyType, onSelect }) => {
   return (
     <div className={styles.chipContainer}>
-      {Object.keys(historyTypes).map((key) => (
+      {historyTypes.map((type) => (
         <Chip
+          key={type.id}
           className={styles.chip}
-          icon={historyTypes[key].icon}
-          data-testid={`category-selector-${historyTypes[key].id}`}
-          label={historyTypes[key].label}
-          variant={
-            historyType === historyTypes[key].id ? "default" : "outlined"
-          }
+          icon={type.icon}
+          data-testid={`category-selector-${type.id}`}
+          label={type.label}
+          variant={historyType === type.id ? "default" : "outlined"}
           color="primary"
           onClick={() => {
-            onSelect(historyTypes[key].id);
+            onSelect(type.id);
           }}
         />
       ))}

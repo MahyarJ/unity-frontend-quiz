@@ -3,21 +3,21 @@ import FaceIcon from "@material-ui/icons/Face";
 import TimelapseIcon from "@material-ui/icons/Timelapse";
 import api from "../lib/api";
 
-const historyTypes = {
-  USERS: {
+const historyTypes = [
+  {
     id: "users",
     label: "Users History",
-    fields: ["Date", "User ID", "Old Name", "New Name"],
+    fields: ["Date", "Old Name", "New Name", "User ID"],
     icon: <FaceIcon />,
     api: api.getUsersDiff,
   },
-  PROJECTS: {
+  {
     id: "projects",
     label: "Projects History",
-    fields: ["Date", "Project ID", "Old Title", "New Title"],
+    fields: ["Date", "Old Title", "New Title", "Project ID"],
     icon: <TimelapseIcon />,
     api: api.getProjectsDiff,
   },
-};
+];
 
 export { historyTypes };

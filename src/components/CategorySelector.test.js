@@ -1,19 +1,12 @@
 import React from "react";
 import { shallow } from "enzyme";
 import { CategorySelector } from "./CategorySelector";
+import { historyTypes } from "./config";
 
 describe("<CategorySelector />", () => {
-  let wrapper = shallow(<CategorySelector historyType="sometype" />);
+  let wrapper = shallow(<CategorySelector historyType="users" />);
 
-  describe("render()", () => {
-    it("renders two components handling category selection", () => {
-      expect(
-        wrapper.find({
-          "data-testid": "category-selector",
-        })
-      ).toHaveLength(2);
-    });
-  });
+  // describe("render()", () => {
 
   describe("props", () => {
     it("check if taking proper classname", () => {
@@ -21,7 +14,7 @@ describe("<CategorySelector />", () => {
     });
 
     it("have exactly two children", () => {
-      expect(wrapper.children()).toHaveLength(2);
+      expect(wrapper.children()).toHaveLength(historyTypes.length);
     });
   });
 });

@@ -2,9 +2,10 @@
 
 ## Q1
 
-- The pattern `POST /users/:id/update` API is comprehensive and can cover behaviors like `POST /users/:id/rename` and `POST /users/:id/update-timezone`.
-- I think a patern like `POST /users/update/:id` is better to implement API.
-- The `DELETE` REST API, just like `POST`, can not handle the inline URI variable.
+- The pattern `POST /users/:id/update` API is comprehensive and can cover behaviors like `POST /users/:id/rename` and `POST /users/:id/update-timezone` depending on the payload
+- I think a patern like `PUT /users/update/:id` is better to implement API.
+- The `DELETE` REST API, just like `POST`, can not handle the inline URI variable and should be like `DELETE /users/:id`.
+- Also the provided example has an issue that shows an upcoming error while the status code is `200` that it should be something like `409` based on the documentations.
 
 ## Q2
 
@@ -15,13 +16,14 @@
 
 ## Q3
 
-- Simple and constant password salt is not very secure. The salt should be auto-generated for each password.
+- Simple and constant password salt is not very secure and should be auto-generated for each password.
+- Use a better hashing function, because MD5 is too fast and an attacker can generate many hashes to guess the correct password. `Bcrypt` could be a better choice here.
 
 -
 
 ## Q4
 
-- Instead of defining `sum` and using such `for` loop, we can use `return deposites.reduce()` code style.
+- Instead of defining `sum` and using such `for` loop, we can use `return deposites.reduce()` code style which makes the code both more understandable, and incidentally shorter.
 
 ## Q5
 
@@ -44,3 +46,4 @@
 - You can run the project using `npm run dev`
 - I just hidden the different Grids to hold the data in the form to prevent using such as Store in such a small project
 - Handling categories config in a separate file helps to brings out every logic inside the component itself
+- I put the user-id column as the last column becasue I think it is not that critical to be shown at first sight.

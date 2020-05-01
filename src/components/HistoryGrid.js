@@ -48,9 +48,9 @@ export const HistoryGrid = ({ fields, rows, orderBy, order, onSort }) => {
               >
                 {date}
               </TableCell>
-              <TableCell className={styles.tableCell}>{id}</TableCell>
               <TableCell className={styles.tableCell}>{oldValue}</TableCell>
               <TableCell className={styles.tableCell}>{newValue}</TableCell>
+              <TableCell className={styles.tableCell}>{id}</TableCell>
             </TableRow>
           ))}
         </TableBody>
