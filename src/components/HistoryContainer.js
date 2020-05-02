@@ -8,19 +8,14 @@ import styles from "./HistoryContainer.module.css";
 export const HistoryContainer = ({ fields, apiCall }) => {
   const [loading, setLoading] = useState(false);
   const [failed, setFailed] = useState(false);
-  const [order, setOrder] = useState("desc");
-  const [rows, setRows] = useState([]);
   const [total, setTotal] = useState(0);
+
+  const { order, rows, setRows, handleOrder } = useOrder();
   const toLoad = total - rows.length;
 
   useEffect(() => {
     fetchData();
   }, []);
-
-  const handleOrder = () => {
-    setOrder(reverse(order));
-    setRows(sortRows(rows, reverse(order)));
-  };
 
   const fetchData = async () => {
     if (loading) return;
@@ -74,6 +69,17 @@ const ButtonContent = ({ loading, toLoad }) => {
     : toLoad
     ? `Fetch More (${toLoad})`
     : "No More Data To Fetch";
+};
+
+const useOrder = () => {
+  const [order, setOrder] = useState("desc");
+  const [rows, setRows] = useState([]);
+  const handleOrder = () => {
+    setOrder(reverse(order));
+    setRows(sortRows(rows, reverse(order)));
+  };
+
+  return { order, rows, setRows, handleOrder };
 };
 
 HistoryContainer.propTypes = {

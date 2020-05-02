@@ -24,4 +24,10 @@ describe("<HistoryGrid />", () => {
       expect(wrapper.find({ "data-testid": "sticky-table" })).toHaveLength(1);
     });
   });
+
+  describe("lines to show", () => {
+    it("renders lines with the same count to the provided data", () => {
+      expect(wrapper.find({ "data-testid": "table-row" })).toHaveLength(2);
+    });
+  });
 });

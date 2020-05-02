@@ -11,6 +11,9 @@ describe("<HistoryContainer />", () => {
   const fetchData = jest.fn(() => {
     return { data: [] };
   });
+  const mockUseEffect = jest
+    .spyOn(React, "useEffect")
+    .mockImplementation(() => fetchData());
 
   beforeEach(() => {
     wrapper = shallow(
@@ -27,14 +30,15 @@ describe("<HistoryContainer />", () => {
       expect(wrapper.find(Button)).toHaveLength(1);
     });
 
-    it("try to fetch data on Button click", () => {
-      const fetchButton = wrapper.find(Button);
-      fetchButton.simulate("click");
+    it("should first-time fetch data", () => {
+      mockUseEffect();
       expect(fetchData).toHaveBeenCalledTimes(1);
     });
 
-    // it("should first-time fetch data", () => {
-    //   expect(fetchData).toHaveBeenCalled();
-    // });
+    it("try to fetch data on Button click", () => {
+      const fetchButton = wrapper.find(Button);
+      fetchButton.simulate("click");
+      expect(fetchData).toHaveBeenCalledTimes(2);
+    });
   });
 });

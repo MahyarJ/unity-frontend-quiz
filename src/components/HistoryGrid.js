@@ -40,7 +40,7 @@ export const HistoryGrid = ({ fields, rows, orderBy, order, onSort }) => {
         </TableHead>
         <TableBody>
           {rows.map(({ id, date, oldValue, newValue }) => (
-            <TableRow key={id}>
+            <TableRow key={id} data-testid="table-row">
               <TableCell
                 className={styles.tableCell}
                 component="th"
