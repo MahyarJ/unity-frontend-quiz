@@ -3,15 +3,19 @@ import { shallow } from "enzyme";
 import { HistoryContainer } from "./HistoryContainer";
 import { HistoryGrid } from "./HistoryGrid";
 import Button from "@material-ui/core/Button";
+import { historyTypes } from "./config";
 
 describe("<HistoryContainer />", () => {
-  let useEffect;
   let wrapper;
-  const fields = ["Date", "User ID", "Old Name", "New Name"];
+  const firstCategoryFields = historyTypes[0].fields;
+  const fetchData = jest.fn(() => {
+    return { data: [] };
+  });
 
   beforeEach(() => {
-    useEffect = jest.spyOn(React, "useEffect");
-    wrapper = shallow(<HistoryContainer historyType="users" fields={fields} />);
+    wrapper = shallow(
+      <HistoryContainer fields={firstCategoryFields} apiCall={fetchData} />
+    );
   });
 
   describe("render()", () => {
@@ -23,8 +27,14 @@ describe("<HistoryContainer />", () => {
       expect(wrapper.find(Button)).toHaveLength(1);
     });
 
-    it("renders exactly two children", () => {
-      expect(wrapper.children()).toHaveLength(2);
+    it("try to fetch data on Button click", () => {
+      const fetchButton = wrapper.find(Button);
+      fetchButton.simulate("click");
+      expect(fetchData).toHaveBeenCalledTimes(1);
     });
+
+    // it("should first-time fetch data", () => {
+    //   expect(fetchData).toHaveBeenCalled();
+    // });
   });
 });
