@@ -19,7 +19,7 @@ const flattenRows = (rows) => {
       ...diff[0],
       id,
       timestamp,
-      date: new Date(timestamp).toLocaleDateString("en-GB"),
+      date: new Date(timestamp).toLocaleDateString(),
     };
   });
 };
