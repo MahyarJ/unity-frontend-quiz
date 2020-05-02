@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import HistoryGrid from "./HistoryGrid";
+import ButtonContent from "./ButtonContent";
 import Button from "@material-ui/core/Button";
 import { reverse, sortRows, flattenRows } from "./utils";
 import styles from "./HistoryContainer.module.css";
@@ -51,7 +52,11 @@ export const HistoryContainer = ({ fields, apiCall }) => {
           onClick={fetchData}
           disabled={loading || !toLoad}
         >
-          <ButtonContent loading={loading} toLoad={toLoad} />
+          <ButtonContent
+            loading={loading}
+            toLoad={toLoad}
+            data-testid="button-content"
+          />
         </Button>
         {failed && (
           <div className={styles.fetchError}>
@@ -61,14 +66,6 @@ export const HistoryContainer = ({ fields, apiCall }) => {
       </div>
     </>
   );
-};
-
-const ButtonContent = ({ loading, toLoad }) => {
-  return loading
-    ? "Fetching..."
-    : toLoad
-    ? `Fetch More (${toLoad})`
-    : "No More Data To Fetch";
 };
 
 const useOrder = () => {

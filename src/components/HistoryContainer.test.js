@@ -35,7 +35,7 @@ describe("<HistoryContainer />", () => {
       expect(fetchData).toHaveBeenCalledTimes(1);
     });
 
-    it("try to fetch data on Button click", () => {
+    it("tries to fetch data on Button click", () => {
       const fetchButton = wrapper.find(Button);
       fetchButton.simulate("click");
       expect(fetchData).toHaveBeenCalledTimes(2);
