@@ -11,6 +11,7 @@ export const HistoryContainer = ({ fields, apiCall }) => {
   const [order, setOrder] = useState("desc");
   const [rows, setRows] = useState([]);
   const [total, setTotal] = useState(0);
+  const toLoad = total - rows.length;
 
   useEffect(() => {
     fetchData();
@@ -27,7 +28,7 @@ export const HistoryContainer = ({ fields, apiCall }) => {
 
     try {
       const { data, total } = await apiCall();
-      setLoading(false);
+      setFailed(false);
       setRows(sortRows([...rows, ...flattenRows(data)], order));
       setTotal(total);
     } catch (error) {
@@ -53,24 +54,26 @@ export const HistoryContainer = ({ fields, apiCall }) => {
           color="primary"
           fullWidth={true}
           onClick={fetchData}
-          disabled={loading || !(total - rows.length)}
+          disabled={loading || !toLoad}
         >
-          {loading
-            ? "Fetching..."
-            : rows.length < total
-            ? `Fetch More (${total - rows.length})`
-            : "No More Data To Fetch"}
+          <ButtonContent loading={loading} toLoad={toLoad} />
         </Button>
-        {failed ? (
+        {failed && (
           <div className={styles.fetchError}>
             Sorry, Your data has failed to fetch. Please try again
           </div>
-        ) : (
-          <div />
         )}
       </div>
     </>
   );
+};
+
+const ButtonContent = ({ loading, toLoad }) => {
+  return loading
+    ? "Fetching..."
+    : toLoad
+    ? `Fetch More (${toLoad})`
+    : "No More Data To Fetch";
 };
 
 HistoryContainer.propTypes = {
