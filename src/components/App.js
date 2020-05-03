@@ -10,18 +10,11 @@ import { historyTypes } from "./config";
 export const App = () => {
   const [historyType, setHistoryType] = useState(historyTypes[0].id);
 
-  const handleCategorySelect = (categoryType) => {
-    setHistoryType(categoryType);
-  };
-
   return (
     <Container className={styles.app} fixed>
       <Box data-testid="app-box" m={2}>
         <Typography variant="h5">History Panel</Typography>
-        <CategorySelector
-          historyType={historyType}
-          onSelect={handleCategorySelect}
-        />
+        <CategorySelector historyType={historyType} onSelect={setHistoryType} />
         {historyTypes.map((type) => (
           <div key={type.id} hidden={historyType !== type.id}>
             <HistoryContainer fields={type.fields} apiCall={type.api} />

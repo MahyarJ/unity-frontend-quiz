@@ -32,7 +32,7 @@
 
 - In a real and bigger projects with reasonable timing, I try to add more tests, specially `integration tests` to make sure of what is happening during complicated renderings.
 
-- Currently I hide the different grids and their data while we switching between categories of history lists, because I didn't want to consume more time in handling `stores` or things similar. But in real world and more complex data categories we have to try to `unmount` completely everything that is not available to be seen.
+- Currently I hide the different grids and their data while we switching between categories of history lists, because I didn't want to consume more time in handling `stores` or `caching` things similar. But in real world and more complex data categories we have to try to `unmount` completely everything that is not available to be seen.
 
 - Also handling `URL` changing on switching between grids can help referencing and later direct access, but here that was completely time consumer and over-engineering.
 

@@ -16,7 +16,7 @@ describe("<App />", () => {
       expect(wrapper.find({ "data-testid": "app-box" })).toHaveLength(1);
     });
 
-    it("should renders two HistoryContainer", () => {
+    it("should renders <HistoryContainer /> as many as history type exists", () => {
       expect(wrapper.find(HistoryContainer)).toHaveLength(historyTypes.length);
     });
   });
