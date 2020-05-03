@@ -19,8 +19,6 @@
 - Simple and constant password salt is not very secure and should be auto-generated for each password.
 - Use a better hashing function, because MD5 is too fast and an attacker can generate many hashes to guess the correct password. `Bcrypt` could be a better choice here.
 
--
-
 ## Q4
 
 - Instead of defining `sum` and using such `for` loop, we can use `return deposites.reduce()` code style which makes the code both more understandable, and incidentally shorter.
@@ -44,6 +42,6 @@
 ## Q8
 
 - You can run the project using `npm run dev`
-- I just hidden the different Grids to hold the data in the form to prevent using such as Store in such a small project
+- I just hide the Grids to hold the data in the form and prevent using such as Store in such a small project.
 - Handling categories config in a separate file helps to brings out every logic inside the component itself
 - I put the user-id column as the last column becasue I think it is not that critical to be shown at first sight.

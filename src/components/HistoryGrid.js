@@ -28,6 +28,7 @@ export const HistoryGrid = ({ fields, rows, orderBy, order, onSort }) => {
                     active={orderBy === title}
                     direction={orderBy === title ? order : "asc"}
                     onClick={onSort}
+                    data-testid="sort-button"
                   >
                     {title}
                   </TableSortLabel>
